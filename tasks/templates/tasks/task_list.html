@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Task Manager</title>
+
+    <link rel="stylesheet" href="{% static 'tasks/style.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>My Task Manager</h1>
+
+        <p class="subtitle">
+            View and manage your tasks.
+        </p>
+
+        <h2>All Tasks ({{ tasks|length }})</h2>
+
+        {% for task in tasks %}
+            <div class="task">
+                <h3>{{ task.title }}</h3>
+
+                <p>
+                    {{ task.description|default:"No description provided." }}
+                </p>
+
+                <span class="priority">
+                    Priority: {{ task.get_priority_display }}
+                </span>
+
+                <span class="status">
+                    Status: {{ task.get_status_display }}
+                </span>
+
+                <p>
+                    Due date: {{ task.due_date|default:"Not set" }}
+                </p>
+            </div>
+        {% empty %}
+            <div class="empty">
+                <p>No tasks yet. Your tasks will appear here.</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

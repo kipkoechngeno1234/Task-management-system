@@ -13,10 +13,10 @@
 <body>
     <div class="container">
         <h1>My Task Manager</h1>
-
-        <p class="subtitle">
-            View and manage your tasks.
-        </p>
+        <p class="subtitle">View and manage your tasks.</p>
+        <a href="{% url 'task_create' %}" class="btn">
+            + Add New Task
+        </a>
 
         <h2>All Tasks ({{ tasks|length }})</h2>
 

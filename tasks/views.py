@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Task
+from .forms import TaskForm
 
 # Create your views here.
 def task_list(request):
@@ -11,3 +12,19 @@ def task_list(request):
     }
 
     return render(request, "tasks/task_list.html", context)
+
+def task_create(request):
+    if request.method == "POST":
+        form = TaskForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("task_list")
+    else:
+        form = TaskForm()
+
+    context = {
+        "form": form,
+    }
+    
+    return render(request, "tasks/task_form.html", context)

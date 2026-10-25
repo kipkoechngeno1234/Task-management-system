@@ -39,6 +39,11 @@
                 <p>
                     Due date: {{ task.due_date|default:"Not set" }}
                 </p>
+
+                <a href="{% url 'task_update' task.id %}" class="btn">
+                    Edit Task
+                </a>
+                
             </div>
         {% empty %}
             <div class="empty">

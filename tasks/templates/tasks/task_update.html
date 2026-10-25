@@ -1,0 +1,57 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Update Task</title>
+
+    <link rel="stylesheet" href="{% static 'tasks/style.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-card">
+            <h1>Update Task</h1>
+
+            <p class="subtitle">
+                Edit the details for: {{ task.title }}
+            </p>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                        </label>
+
+                        {{ field }}
+
+                        {% for error in field.errors %}
+                            <p class="error">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+                {% if form.non_field_errors %}
+                    <div class="error">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <button type="submit" class="btn">
+                    Save Changes
+                </button>
+
+                <a href="{% url 'task_list' %}" class="back-link">
+                    Cancel
+                </a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
